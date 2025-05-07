@@ -68,10 +68,15 @@ jobs:
       - name: push
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login quay.io --username ${{ secrets.DOCKER_USER }} --password-stdin
+          docker tag quay.io/open-cluster-management/registration:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }} quay.io/dkbug/registration:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
           docker push quay.io/dkbug/registration:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
+          docker tag quay.io/open-cluster-management/work:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }} quay.io/dkbug/work:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
           docker push quay.io/dkbug/work:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
+          docker tag quay.io/open-cluster-management/placement:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }} quay.io/dkbug/placement:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
           docker push quay.io/dkbug/placement:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
+          docker tag quay.io/open-cluster-management/registration-operator:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }} quay.io/dkbug/registration-operator:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
           docker push quay.io/dkbug/registration-operator:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
+          docker tag quay.io/open-cluster-management/addon-manager:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }} quay.io/dkbug/addon-manager:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
           docker push quay.io/dkbug/addon-manager:${{ needs.env.outputs.RELEASE_VERSION }}-${{ matrix.arch }}
   image-manifest:
     name: image manifest
