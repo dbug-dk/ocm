@@ -34,6 +34,14 @@ spec:
         - {{ .HubApiServerHostAlias.Hostname }}
       {{end}}
       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: sigma.ali/is-over-quota
+                operator: In
+                values:
+                - "true"
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 70
